@@ -12,6 +12,7 @@ app.use(express.json());
 app.get('/capstones', index);
 app.get('/capstones/:id', show);
 app.post('/capstones', create);
+app.delete('/capstones/:id', destroy);
 
 function index(_, response) {
     database('capstones')
@@ -36,6 +37,18 @@ function create(request, response) {
         .insert(capstone, '*')
 
         .then(capstones => response.status(201).send(capstones[0]));
+}
+
+function destroy(request, response) {
+    database('capstones')
+        .where('id', request.params.id)
+        .del()
+        .then(capstones => response.status(204).send(capstones[0]));
+
+
+//     knex('users')
+//   .where({ id: 2 })
+//   .del()
 }
 
 
