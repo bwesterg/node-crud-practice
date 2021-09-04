@@ -13,7 +13,7 @@ app.get('/capstones', index);
 app.get('/capstones/:id', show);
 app.post('/capstones', create);
 app.patch('/capstones/:id', update);
-// app.delete('/capstones/:id', destroy);
+app.delete('/capstones/:id', destroy);
 
 function index(_, response) {
     database('capstones')
@@ -50,18 +50,13 @@ function update(request, response) {
         .then(capstones => response.status(200).send(capstones[0]));
 }
 
-// knex('users')
-//   .where({ id: 135 })
-//   .update({ email: 'hi@example.com' })
+function destroy(request, response) {
+    database('capstones')
+        .where('id', request.params.id)
+        .del('*')
+        .then(result => response.status(200).send(result));
 
-
-// function destroy(request, response) {
-//     database('capstones')
-//         .where('id', request.params.id)
-//         .del()
-//         .then(capstones => response.status(204).send(capstones[0]));
-
-// }
+}
 
 
 app.listen(port, () => console.log(`listening on port ${port}`));
