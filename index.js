@@ -27,11 +27,15 @@ function show(request, response) {
 }
 
 function create(request, response) {
-    const {capstone} = request.body
+    const {capstone} = request.body;
+    // console.log('capstone', capstone);
     //blog
     // console.log('request body', request.body);
     database('capstones')
-        .insert()
+        // .insert(capstone, ['id', 'title', 'fire'])
+        .insert(capstone, '*')
+
+        .then(capstones => response.status(201).send(capstones[0]));
 }
 
 
