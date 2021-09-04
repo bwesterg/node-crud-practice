@@ -19,6 +19,7 @@ function index(_, response) {
 }
 
 function show(request, response) {
+    //blog
     // request.params.index
     database('capstones')
         .where('id', request.params.id)
@@ -26,7 +27,11 @@ function show(request, response) {
 }
 
 function create(request, response) {
-    console.log('request body', request.body);
+    const {capstone} = request.body
+    //blog
+    // console.log('request body', request.body);
+    database('capstones')
+        .insert()
 }
 
 
